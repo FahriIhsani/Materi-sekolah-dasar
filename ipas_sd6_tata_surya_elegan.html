@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eksplorasi Tata Surya Interaktif HD - SD NEGERI 14 SAWIT PERMAI</title>
+    
+    <!-- Memuat Tailwind CSS untuk styling modern dan responsif -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Gaya Kustom untuk nuansa sekolah dan ruang angkasa */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d1a2e; /* Warna latar belakang gelap untuk nuansa angkasa */
+            color: #e2e8f0; /* Teks putih kebiruan */
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); /* Pola bintang */
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+        .container-wrapper {
+            background-color: rgba(255, 255, 255, 0.08); /* Latar belakang transparan elegan */
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .planet-card {
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+        }
+        .planet-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+        }
+        .planet-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            /* Border dan Glow ungu yang elegan */
+            border: 2px solid #a78bfa; 
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.5); 
+            transition: transform 0.3s ease-in-out;
+        }
+        .planet-card:hover .planet-image {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #a78bfa, #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .response-box {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid #818cf8;
+            box-shadow: 0 0 20px rgba(129, 140, 248, 0.3);
+            color: #cbd5e1;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #818cf8;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsif untuk ukuran layar kecil */
+        @media (max-width: 640px) {
+            .planet-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .planet-image {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto rounded-xl shadow-2xl p-6 md:p-10 container-wrapper">
+
+        <!-- Header Aplikasi dan Identitas Sekolah -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gradient mb-3">
+                Eksplorasi Tata Surya HD
+            </h1>
+            <p class="text-xl text-gray-300 mb-4">
+                Materi IPAS Kelas 6 SD - Didukung Asisten AI (Gemini)
+            </p>
+            <div class="p-3 bg-blue-900 bg-opacity-40 rounded-lg inline-block border border-blue-700">
+                <p class="text-lg font-semibold text-blue-300">
+                    SD NEGERI 14 SAWIT PERMAI
+                </p>
+            </div>
+        </header>
+
+        <!-- Area Interaktif Planet (Grid Kartu) -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-200 mb-4 border-b-2 border-gray-700 pb-2">
+                Pilih Planet untuk Berinteraksi dengan "Gemini"
+            </h2>
+            <div id="planet-grid" class="planet-grid grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                <!-- Planet Cards akan di-generate oleh JS di bawah -->
+            </div>
+        </section>
+
+        <!-- Area Hasil Respon Simulasi Gemini -->
+        <section>
+            <h2 class="text-2xl font-bold text-gray-200 mb-4 border-b-2 border-gray-700 pb-2">
+                Informasi dari Asisten "Gemini"
+            </h2>
+            <div id="result-box" class="response-box p-6 rounded-xl min-h-[150px] flex flex-col justify-center items-center text-center">
+                <p id="gemini-response" class="text-gray-300 text-lg">
+                    Klik gambar salah satu planet di atas untuk menjelajahi fakta menarik yang disiapkan oleh Asisten Gemini!
+                </p>
+                <!-- Loading indicator akan muncul di sini saat proses simulasi -->
+            </div>
+
+            <div class="mt-4 p-3 bg-gray-800 bg-opacity-50 rounded-lg text-sm text-gray-400 border border-gray-700">
+                <p>
+                    <span class="font-bold text-gray-200">Catatan Bukti Karya:</span> Aplikasi ini mensimulasikan penggunaan model AI Gemini (gemini-2.5-flash-preview-09-2025) untuk menghasilkan konten edukasi yang ringkas dan sesuai dengan kurikulum IPAS kelas 6 SD.
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- Data Planet dan URL Gambar Realistis (HD) dari NASA Solar System Exploration ---
+        const planets = [
+            // URL baru yang lebih stabil dari solarsystem.nasa.gov
+            { name: "Merkurius", image: "https://science.nasa.gov/wp-content/uploads/2024/03/pia15162-mercury-basins-messenger-16x9-1.jpg?resize=400,225" },
+            { name: "Venus", image: "https://science.nasa.gov/wp-content/uploads/2024/03/venus-mariner-10-pia23791-fig2-16x9-1.jpg?resize=600,338" },
+            { name: "Bumi", image: "https://science.nasa.gov/wp-content/uploads/2024/03/blue-marble-apollo-17-16x9-1.jpg?resize=600,338" },
+            { name: "Mars", image: "https://science.nasa.gov/wp-content/uploads/2024/03/mars-full-globe-16x9-1.jpg?resize=600,338" },
+            { name: "Jupiter", image: "https://science.nasa.gov/wp-content/uploads/2024/03/jupiter-marble-pia22946-16x9-1.jpg?resize=600,338" },
+            { name: "Saturnus", image: "https://science.nasa.gov/wp-content/uploads/2023/05/saturn-farewell-pia21345-sse-banner-1920x640-1.jpg?resize=600,200" }, 
+            { name: "Uranus", image: "https://science.nasa.gov/wp-content/uploads/2024/03/uranus-pia18182-16x9-1.jpg?resize=600,338" },
+            { name: "Neptunus", image: "https://science.nasa.gov/wp-content/uploads/2024/03/pia01492-neptune-full-disk-16x9-1.jpg?resize=600,338" }
+        ];
+
+        // --- Simulasi Database Respon Gemini (disesuaikan untuk Siswa SD Kelas 6) ---
+        const mockResponses = {
+            "Merkurius": "Merkurius adalah planet yang paling dekat dengan Matahari. Karena sangat dekat, suhunya bisa sangat panas di siang hari dan sangat dingin di malam hari! Planet ini tidak punya bulan, lho.",
+            "Venus": "Venus adalah planet terpanas, bahkan lebih panas dari Merkurius! Anehnya, Venus berputar 'terbalik' dibandingkan planet lain. Venus juga sering disebut 'Bintang Kejora' karena terlihat sangat cerah di langit pagi atau sore.",
+            "Bumi": "Inilah rumah kita! Bumi adalah satu-satunya planet yang kita tahu punya air dalam bentuk cair dan kehidupan. Bumi punya satu satelit alami, yaitu Bulan, yang membantu menjaga keseimbangan alam kita.",
+            "Mars": "Mars sering dijuluki 'Planet Merah' karena permukaannya yang berkarat (ada banyak oksida besi). Para ilmuwan sangat tertarik pada Mars karena mereka pikir Mars mungkin pernah punya air dan bisa dihuni di masa depan.",
+            "Jupiter": "Jupiter adalah planet terbesar di Tata Surya! Besarnya seperti menggabungkan semua planet lain. Jupiter terkenal dengan 'Bintik Merah Besar'-nya, yang sebenarnya adalah badai raksasa yang sudah berlangsung ratusan tahun!",
+            "Saturnus": "Saturnus adalah planet paling cantik karena memiliki sistem cincin yang sangat besar dan indah! Cincinnya terbuat dari es dan batu. Saturnus adalah planet gas, jadi kamu tidak bisa mendarat di permukaannya.",
+            "Uranus": "Uranus adalah planet yang berputar miring, seperti bola yang digelindingkan! Uranus berwarna biru kehijauan dan merupakan planet es. Suhunya sangat dingin, salah satu yang terdingin di Tata Surya.",
+            "Neptunus": "Neptunus adalah planet terjauh dari Matahari. Karena itu, ia juga sangat dingin dan gelap. Di Neptunus sering terjadi badai besar dan anginnya adalah yang tercepat di Tata Surya!",
+        };
+
+        // --- Fungsi Utama untuk Mensimulasikan Panggilan API Gemini ---
+        async function simulateGeminiCall(planetName) {
+            // Simulasi penundaan jaringan dan pemrosesan AI
+            await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 500)); // 1.5 - 2 detik
+
+            const responseText = mockResponses[planetName] || "Maaf, Asisten Gemini tidak menemukan data yang sesuai untuk planet ini.";
+
+            // Struktur respons yang meniru model generateContent
+            return {
+                candidates: [{
+                    content: {
+                        parts: [{ text: responseText }]
+                    }
+                }]
+            };
+        }
+
+        // --- Elemen DOM ---
+        const planetGrid = document.getElementById('planet-grid');
+        const geminiResponseText = document.getElementById('gemini-response');
+        const resultBox = document.getElementById('result-box');
+        
+        // --- Fungsi untuk Merender Kartu Planet ---
+        function renderPlanetCards() {
+            planets.forEach(planet => {
+                const card = document.createElement('div');
+                card.className = `planet-card p-4 rounded-xl text-white text-center`;
+                card.innerHTML = `
+                    <img src="${planet.image}" alt="${planet.name}" class="planet-image mb-3">
+                    <p class="font-bold text-xl text-gray-100">${planet.name}</p>
+                    <p class="text-xs opacity-70 mt-1 text-gray-400">Sentuh untuk Info</p>
+                `;
+                card.addEventListener('click', () => fetchPlanetFact(planet.name, card));
+                planetGrid.appendChild(card);
+            });
+        }
+
+        // --- Fungsi Penanganan Klik Planet ---
+        async function fetchPlanetFact(planetName, cardElement) {
+            // Hapus kelas 'active' dari semua kartu (opsional, untuk indikasi klik)
+            document.querySelectorAll('.planet-card').forEach(c => c.classList.remove('active'));
+            cardElement.classList.add('active');
+
+            // Tampilkan pesan loading
+            geminiResponseText.innerHTML = `
+                <div class="flex flex-col items-center">
+                    <div class="loading-spinner mb-4"></div>
+                    <p class="text-lg text-gray-300">Asisten Gemini sedang mencari fakta menarik tentang <span class="font-bold text-purple-300">${planetName}</span>...</p>
+                </div>
+            `;
+
+            try {
+                const response = await simulateGeminiCall(planetName);
+                const result = response.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (result) {
+                    geminiResponseText.innerHTML = `
+                        <p class="font-bold text-purple-300 text-2xl mb-3">${planetName}</p>
+                        <p class="text-left text-gray-300 leading-relaxed">${result}</p>
+                    `;
+                } else {
+                    geminiResponseText.textContent = "Terjadi kesalahan dalam mengambil informasi dari Asisten Gemini.";
+                }
+
+            } catch (error) {
+                console.error("Simulasi API Error:", error);
+                geminiResponseText.textContent = "Gagal terhubung ke simulasi Asisten Gemini. Silakan coba lagi.";
+            } finally {
+                 // Hapus kelas 'active'
+                 cardElement.classList.remove('active');
+            }
+        }
+
+        // Panggil fungsi untuk mengisi grid planet saat halaman dimuat
+        window.onload = renderPlanetCards;
+
+    </script>
+</body>
+</html>
