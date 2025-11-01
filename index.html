@@ -3,247 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eksplorasi Tata Surya Interaktif HD - SD NEGERI 14 SAWIT PERMAI</title>
-    
+    <title>Bukti Karya: Pemanfaatan Gemini di SD NEGERI 14 SAWIT PERMAI</title>
     <!-- Memuat Tailwind CSS untuk styling modern dan responsif -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Menggunakan font Inter -->
     <style>
-        /* Gaya Kustom untuk nuansa sekolah dan ruang angkasa */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #0d1a2e; /* Warna latar belakang gelap untuk nuansa angkasa */
-            color: #e2e8f0; /* Teks putih kebiruan */
-            background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); /* Pola bintang */
-            background-attachment: fixed;
-            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
         }
-        .container-wrapper {
-            background-color: rgba(255, 255, 255, 0.08); /* Latar belakang transparan elegan */
-            backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        /* Custom styles for the school theme */
+        .header-bg {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         }
-        .planet-card {
-            transition: all 0.3s ease-in-out;
-            cursor: pointer;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 180px;
-        }
-        .planet-card:hover {
-            transform: translateY(-8px) scale(1.05);
-            background-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
-        }
-        .planet-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            /* Border dan Glow ungu yang elegan */
-            border: 2px solid #a78bfa; 
-            box-shadow: 0 0 15px rgba(167, 139, 250, 0.5); 
-            transition: transform 0.3s ease-in-out;
-        }
-        .planet-card:hover .planet-image {
-            transform: scale(1.1) rotate(5deg);
-        }
-        .text-gradient {
-            background: linear-gradient(to right, #a78bfa, #818cf8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .response-box {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid #818cf8;
-            box-shadow: 0 0 20px rgba(129, 140, 248, 0.3);
-            color: #cbd5e1;
-        }
-        .loading-spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid #818cf8;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Responsif untuk ukuran layar kecil */
-        @media (max-width: 640px) {
-            .planet-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-            .planet-image {
-                width: 60px;
-                height: 60px;
-            }
+        .gemini-card {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
-<body class="min-h-screen p-4 md:p-8">
+<body class="min-h-screen flex flex-col">
 
-    <div class="max-w-6xl mx-auto rounded-xl shadow-2xl p-6 md:p-10 container-wrapper">
-
-        <!-- Header Aplikasi dan Identitas Sekolah -->
-        <header class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gradient mb-3">
-                Eksplorasi Tata Surya HD
+    <!-- Header Aplikasi -->
+    <header class="header-bg p-6 text-white shadow-lg">
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">
+                SD NEGERI 14 SAWIT PERMAI
             </h1>
-            <p class="text-xl text-gray-300 mb-4">
-                Materi IPAS Kelas 6 SD - Didukung Asisten AI (Gemini)
+            <p class="mt-1 text-lg font-light">
+                Bukti Karya Pemanfaatan Gemini untuk IPAS Kelas 6
             </p>
-            <div class="p-3 bg-blue-900 bg-opacity-40 rounded-lg inline-block border border-blue-700">
-                <p class="text-lg font-semibold text-blue-300">
-                    SD NEGERI 14 SAWIT PERMAI
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="flex-grow container mx-auto p-4 md:p-8">
+        <div class="max-w-4xl mx-auto">
+            
+            <!-- Deskripsi Materi -->
+            <section class="mb-8 p-6 bg-white rounded-xl border-t-4 border-emerald-500 shadow-md">
+                <h2 class="text-2xl font-bold text-gray-800 mb-3">
+                    Asisten IPAS: Transformasi Energi
+                </h2>
+                <p class="text-gray-600">
+                    Siswa/i Kelas 6 dapat bertanya apa saja tentang **perubahan bentuk energi** (contoh: energi listrik menjadi cahaya, energi kimia menjadi gerak) kepada Asisten Gemini.
                 </p>
-            </div>
-        </header>
+            </section>
 
-        <!-- Area Interaktif Planet (Grid Kartu) -->
-        <section class="mb-10">
-            <h2 class="text-2xl font-bold text-gray-200 mb-4 border-b-2 border-gray-700 pb-2">
-                Pilih Planet untuk Berinteraksi dengan "Gemini"
-            </h2>
-            <div id="planet-grid" class="planet-grid grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                <!-- Planet Cards akan di-generate oleh JS di bawah -->
-            </div>
-        </section>
-
-        <!-- Area Hasil Respon Simulasi Gemini -->
-        <section>
-            <h2 class="text-2xl font-bold text-gray-200 mb-4 border-b-2 border-gray-700 pb-2">
-                Informasi dari Asisten "Gemini"
-            </h2>
-            <div id="result-box" class="response-box p-6 rounded-xl min-h-[150px] flex flex-col justify-center items-center text-center">
-                <p id="gemini-response" class="text-gray-300 text-lg">
-                    Klik gambar salah satu planet di atas untuk menjelajahi fakta menarik yang disiapkan oleh Asisten Gemini!
-                </p>
-                <!-- Loading indicator akan muncul di sini saat proses simulasi -->
-            </div>
-
-            <div class="mt-4 p-3 bg-gray-800 bg-opacity-50 rounded-lg text-sm text-gray-400 border border-gray-700">
-                <p>
-                    <span class="font-bold text-gray-200">Catatan Bukti Karya:</span> Aplikasi ini mensimulasikan penggunaan model AI Gemini (gemini-2.5-flash-preview-09-2025) untuk menghasilkan konten edukasi yang ringkas dan sesuai dengan kurikulum IPAS kelas 6 SD.
-                </p>
-            </div>
-        </section>
-
-    </div>
-
-    <script>
-        // --- Data Planet dan URL Gambar Realistis (HD) dari NASA Solar System Exploration ---
-        const planets = [
-            // URL baru yang lebih stabil dari solarsystem.nasa.gov
-            { name: "Merkurius", image: "https://science.nasa.gov/wp-content/uploads/2024/03/pia15162-mercury-basins-messenger-16x9-1.jpg?resize=400,225" },
-            { name: "Venus", image: "https://science.nasa.gov/wp-content/uploads/2024/03/venus-mariner-10-pia23791-fig2-16x9-1.jpg?resize=600,338" },
-            { name: "Bumi", image: "https://science.nasa.gov/wp-content/uploads/2024/03/blue-marble-apollo-17-16x9-1.jpg?resize=600,338" },
-            { name: "Mars", image: "https://science.nasa.gov/wp-content/uploads/2024/03/mars-full-globe-16x9-1.jpg?resize=600,338" },
-            { name: "Jupiter", image: "https://science.nasa.gov/wp-content/uploads/2024/03/jupiter-marble-pia22946-16x9-1.jpg?resize=600,338" },
-            { name: "Saturnus", image: "https://science.nasa.gov/wp-content/uploads/2023/05/saturn-farewell-pia21345-sse-banner-1920x640-1.jpg?resize=600,200" }, 
-            { name: "Uranus", image: "https://science.nasa.gov/wp-content/uploads/2024/03/uranus-pia18182-16x9-1.jpg?resize=600,338" },
-            { name: "Neptunus", image: "https://science.nasa.gov/wp-content/uploads/2024/03/pia01492-neptune-full-disk-16x9-1.jpg?resize=600,338" }
-        ];
-
-        // --- Simulasi Database Respon Gemini (disesuaikan untuk Siswa SD Kelas 6) ---
-        const mockResponses = {
-            "Merkurius": "Merkurius adalah planet yang paling dekat dengan Matahari. Karena sangat dekat, suhunya bisa sangat panas di siang hari dan sangat dingin di malam hari! Planet ini tidak punya bulan, lho.",
-            "Venus": "Venus adalah planet terpanas, bahkan lebih panas dari Merkurius! Anehnya, Venus berputar 'terbalik' dibandingkan planet lain. Venus juga sering disebut 'Bintang Kejora' karena terlihat sangat cerah di langit pagi atau sore.",
-            "Bumi": "Inilah rumah kita! Bumi adalah satu-satunya planet yang kita tahu punya air dalam bentuk cair dan kehidupan. Bumi punya satu satelit alami, yaitu Bulan, yang membantu menjaga keseimbangan alam kita.",
-            "Mars": "Mars sering dijuluki 'Planet Merah' karena permukaannya yang berkarat (ada banyak oksida besi). Para ilmuwan sangat tertarik pada Mars karena mereka pikir Mars mungkin pernah punya air dan bisa dihuni di masa depan.",
-            "Jupiter": "Jupiter adalah planet terbesar di Tata Surya! Besarnya seperti menggabungkan semua planet lain. Jupiter terkenal dengan 'Bintik Merah Besar'-nya, yang sebenarnya adalah badai raksasa yang sudah berlangsung ratusan tahun!",
-            "Saturnus": "Saturnus adalah planet paling cantik karena memiliki sistem cincin yang sangat besar dan indah! Cincinnya terbuat dari es dan batu. Saturnus adalah planet gas, jadi kamu tidak bisa mendarat di permukaannya.",
-            "Uranus": "Uranus adalah planet yang berputar miring, seperti bola yang digelindingkan! Uranus berwarna biru kehijauan dan merupakan planet es. Suhunya sangat dingin, salah satu yang terdingin di Tata Surya.",
-            "Neptunus": "Neptunus adalah planet terjauh dari Matahari. Karena itu, ia juga sangat dingin dan gelap. Di Neptunus sering terjadi badai besar dan anginnya adalah yang tercepat di Tata Surya!",
-        };
-
-        // --- Fungsi Utama untuk Mensimulasikan Panggilan API Gemini ---
-        async function simulateGeminiCall(planetName) {
-            // Simulasi penundaan jaringan dan pemrosesan AI
-            await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 500)); // 1.5 - 2 detik
-
-            const responseText = mockResponses[planetName] || "Maaf, Asisten Gemini tidak menemukan data yang sesuai untuk planet ini.";
-
-            // Struktur respons yang meniru model generateContent
-            return {
-                candidates: [{
-                    content: {
-                        parts: [{ text: responseText }]
-                    }
-                }]
-            };
-        }
-
-        // --- Elemen DOM ---
-        const planetGrid = document.getElementById('planet-grid');
-        const geminiResponseText = document.getElementById('gemini-response');
-        const resultBox = document.getElementById('result-box');
-        
-        // --- Fungsi untuk Merender Kartu Planet ---
-        function renderPlanetCards() {
-            planets.forEach(planet => {
-                const card = document.createElement('div');
-                card.className = `planet-card p-4 rounded-xl text-white text-center`;
-                card.innerHTML = `
-                    <img src="${planet.image}" alt="${planet.name}" class="planet-image mb-3">
-                    <p class="font-bold text-xl text-gray-100">${planet.name}</p>
-                    <p class="text-xs opacity-70 mt-1 text-gray-400">Sentuh untuk Info</p>
-                `;
-                card.addEventListener('click', () => fetchPlanetFact(planet.name, card));
-                planetGrid.appendChild(card);
-            });
-        }
-
-        // --- Fungsi Penanganan Klik Planet ---
-        async function fetchPlanetFact(planetName, cardElement) {
-            // Hapus kelas 'active' dari semua kartu (opsional, untuk indikasi klik)
-            document.querySelectorAll('.planet-card').forEach(c => c.classList.remove('active'));
-            cardElement.classList.add('active');
-
-            // Tampilkan pesan loading
-            geminiResponseText.innerHTML = `
-                <div class="flex flex-col items-center">
-                    <div class="loading-spinner mb-4"></div>
-                    <p class="text-lg text-gray-300">Asisten Gemini sedang mencari fakta menarik tentang <span class="font-bold text-purple-300">${planetName}</span>...</p>
+            <!-- Antarmuka Chat -->
+            <section class="gemini-card bg-white rounded-xl p-6 md:p-8">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Ajukan Pertanyaanmu!</h3>
+                
+                <!-- Area Input Pertanyaan -->
+                <div class="flex flex-col md:flex-row gap-4 mb-6">
+                    <input type="text" id="userInput" placeholder="Contoh: 'Apa itu energi kinetik?' atau 'Beri aku contoh perubahan energi.'" 
+                           class="flex-grow p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-emerald-500 transition duration-150 text-gray-700">
+                    <button id="askButton" onclick="askGemini()" 
+                            class="px-6 py-3 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 transition duration-300 shadow-md">
+                        Tanyakan
+                    </button>
                 </div>
-            `;
+                
+                <!-- Area Tampilan Respon -->
+                <div id="responseArea" class="mt-6 border-t pt-6">
+                    <div id="loadingIndicator" class="hidden flex items-center justify-center space-x-2 text-emerald-600">
+                        <!-- Icon loading sederhana -->
+                        <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Gemini sedang berpikir...</span>
+                    </div>
 
-            try {
-                const response = await simulateGeminiCall(planetName);
-                const result = response.candidates?.[0]?.content?.parts?.[0]?.text;
+                    <div id="geminiResponse" class="p-4 bg-gray-50 rounded-lg text-gray-700 min-h-[100px] border border-gray-200">
+                        <p class="text-lg font-medium text-emerald-600">Halo, Anak Hebat!</p>
+                        <p class="mt-2">Saya Asisten Gemini. Ayo kita belajar tentang energi! Tuliskan pertanyaanmu di atas dan saya akan bantu menjelaskannya.</p>
+                    </div>
+                    
+                    <div id="errorBox" class="hidden mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                        Terjadi kesalahan saat menghubungi Asisten. Coba lagi!
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
 
-                if (result) {
-                    geminiResponseText.innerHTML = `
-                        <p class="font-bold text-purple-300 text-2xl mb-3">${planetName}</p>
-                        <p class="text-left text-gray-300 leading-relaxed">${result}</p>
-                    `;
-                } else {
-                    geminiResponseText.textContent = "Terjadi kesalahan dalam mengambil informasi dari Asisten Gemini.";
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 mt-8">
+        <div class="container mx-auto text-center text-sm">
+            &copy; 2025 Bukti Karya | SD NEGERI 14 SAWIT PERMAI
+        </div>
+    </footer>
+
+    <!-- Skrip Interaksi dan Simulasi API Gemini -->
+    <script>
+        // Variabel global yang disediakan oleh lingkungan Canvas (hanya untuk simulasi struktur)
+        const apiKey = ""; 
+        const modelName = "gemini-2.5-flash-preview-09-2025";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const geminiResponse = document.getElementById('geminiResponse');
+        const errorBox = document.getElementById('errorBox');
+        const userInput = document.getElementById('userInput');
+        const askButton = document.getElementById('askButton');
+        
+        // Konstanta dan utilitas untuk simulasi API
+        const MAX_RETRIES = 5;
+
+        // Fungsi bantuan untuk Base64 ke ArrayBuffer (jika API responsnya audio/gambar, tidak digunakan di sini)
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        /**
+         * Fungsi untuk melakukan panggilan API Gemini (disimulasikan dengan struktur panggilan yang benar).
+         * @param {string} prompt Pertanyaan dari siswa.
+         */
+        async function callGeminiAPI(prompt) {
+            const systemPrompt = "Anda adalah asisten pengajar yang ramah untuk siswa kelas 6 SD. Jelaskan konsep tentang Energi dan Perubahannya dengan bahasa yang sangat sederhana, bersemangat, dan mudah dipahami. Jawaban maksimal 4 kalimat.";
+            
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+                // Menonaktifkan grounding untuk fokus pada penjelasan materi sederhana
+                // tools: [{ "google_search": {} }], 
+            };
+
+            const headers = {
+                'Content-Type': 'application/json',
+                // 'Authorization': `Bearer ${apiKey}` // Jika menggunakan auth token, tapi di sini kita pakai query param key
+            };
+            
+            let lastError = null;
+
+            for (let i = 0; i < MAX_RETRIES; i++) {
+                try {
+                    // Tampilkan loading, sembunyikan error
+                    loadingIndicator.classList.remove('hidden');
+                    geminiResponse.innerHTML = '';
+                    errorBox.classList.add('hidden');
+                    askButton.disabled = true;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: headers,
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    // Proses Respon dan Ekstraksi Teks
+                    const candidate = result.candidates?.[0];
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        const text = candidate.content.parts[0].text;
+                        
+                        // Ekstraksi sumber (jika grounding digunakan)
+                        let sources = [];
+                        const groundingMetadata = candidate.groundingMetadata;
+                        if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                            sources = groundingMetadata.groundingAttributions
+                                .map(attribution => ({
+                                    uri: attribution.web?.uri,
+                                    title: attribution.web?.title,
+                                }))
+                                .filter(source => source.uri && source.title);
+                        }
+
+                        // Sembunyikan loading
+                        loadingIndicator.classList.add('hidden');
+                        askButton.disabled = false;
+                        
+                        return { text: text, sources: sources };
+                    } else {
+                        throw new Error("Respon API tidak memiliki konten teks.");
+                    }
+                } catch (e) {
+                    lastError = e;
+                    console.error(`Attempt ${i + 1} failed:`, e);
+                    if (i < MAX_RETRIES - 1) {
+                        // Exponential backoff
+                        const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    }
                 }
+            }
+
+            // Jika semua percobaan gagal
+            loadingIndicator.classList.add('hidden');
+            errorBox.classList.remove('hidden');
+            errorBox.textContent = "Maaf, Asisten Gemini sedang sibuk. Silakan coba lagi nanti.";
+            askButton.disabled = false;
+            throw lastError;
+        }
+
+        // Fungsi untuk menampilkan hasil atau simulasi
+        async function askGemini() {
+            const query = userInput.value.trim();
+            if (query === "") {
+                errorBox.classList.remove('hidden');
+                errorBox.textContent = "Tulis dulu pertanyaanmu, ya!";
+                return;
+            }
+
+            // --- Simulasi Respons karena keterbatasan API Key di lingkungan ini ---
+            // Dalam implementasi nyata, kita akan memanggil `callGeminiAPI(query)`
+            // Namun, untuk keperluan Bukti Karya yang berjalan tanpa API key, 
+            // kita akan menampilkan simulasi respons LLM yang terstruktur.
+            
+            try {
+                loadingIndicator.classList.remove('hidden');
+                geminiResponse.innerHTML = '';
+                errorBox.classList.add('hidden');
+                askButton.disabled = true;
+                
+                // Menunggu sebentar untuk simulasi loading
+                await new Promise(resolve => setTimeout(resolve, 2000)); 
+                
+                let responseText = generateSimulatedResponse(query);
+
+                // Tampilkan respons
+                geminiResponse.innerHTML = `
+                    <p class="text-lg font-medium text-emerald-600">Respons dari Asisten Gemini:</p>
+                    <p class="mt-2">${responseText}</p>
+                `;
 
             } catch (error) {
-                console.error("Simulasi API Error:", error);
-                geminiResponseText.textContent = "Gagal terhubung ke simulasi Asisten Gemini. Silakan coba lagi.";
+                console.error("Simulasi gagal:", error);
+                errorBox.classList.remove('hidden');
+                errorBox.textContent = "Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.";
             } finally {
-                 // Hapus kelas 'active'
-                 cardElement.classList.remove('active');
+                loadingIndicator.classList.add('hidden');
+                askButton.disabled = false;
             }
         }
 
-        // Panggil fungsi untuk mengisi grid planet saat halaman dimuat
-        window.onload = renderPlanetCards;
+        /**
+         * Mensimulasikan logika model yang telah diarahkan oleh System Prompt.
+         * @param {string} query 
+         */
+        function generateSimulatedResponse(query) {
+            query = query.toLowerCase();
+
+            if (query.includes("energi kinetik")) {
+                return "Wah, pertanyaan bagus! Energi Kinetik itu adalah energi yang dimiliki benda yang sedang bergerak. Ingat saja kata 'Kinetic' = Gerak! Contohnya, mobil yang melaju kencang atau air sungai yang mengalir deras. Semakin cepat geraknya, semakin besar energinya!";
+            } else if (query.includes("perubahan energi")) {
+                return "Sip! Perubahan energi itu artinya energi bisa berubah bentuk, lho. Misalnya, saat kamu menyalakan setrika, energi listrik berubah jadi energi panas. Atau, saat kamu makan nasi (energi kimia) lalu berlari (energi gerak)! Energi tidak bisa hilang, hanya berubah rupa!";
+            } else if (query.includes("listrik")) {
+                return "Listrik adalah energi paling hebat di rumah kita! Listrik bisa berubah jadi banyak hal. Contohnya, di lampu berubah jadi cahaya, di kipas angin berubah jadi gerak, dan di TV berubah jadi suara dan cahaya. Hebat, kan?";
+            } else if (query.includes("kimia")) {
+                return "Energi kimia biasanya tersimpan dalam makanan atau baterai. Saat kamu makan, energi kimia dari makanan membuatmu kuat dan bisa bergerak (energi gerak). Kalau di baterai, energi kimianya diubah jadi energi listrik! Pokoknya, energi tersimpan yang siap dipakai!";
+            } else if (query.includes("matahari")) {
+                return "Matahari adalah sumber energi terbesar! Energi panas dan cahaya dari Matahari membuat tanaman tumbuh (energi kimia), mengeringkan baju, dan bisa diubah menjadi listrik dengan alat canggih bernama panel surya. Jaga lingkungan, ya!";
+            } else {
+                return "Waaah, Asisten Gemini senang kamu bertanya! Energi adalah kemampuan untuk melakukan usaha. Ingat, energi itu bisa berubah bentuk. Coba kamu kasih contoh perubahan energi di rumahmu, pasti seru! Misalnya, energi apa jadi energi apa? Semangat belajar, Nak!";
+            }
+        }
+
+        // Atur agar tombol 'Enter' juga memicu fungsi
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                askGemini();
+            }
+        });
 
     </script>
 </body>
 </html>
-
